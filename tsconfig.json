@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "jsx": "react",
+    "esModuleInterop": true
+  },
+   "include": ["src/**/*.tsx", "src/**/*.ts", "src/tests/Question.test.js", "src/tests/Quiz.test.js"]
+}

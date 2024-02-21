@@ -1,0 +1,12 @@
+.results-container{
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+h2{
+    font-size: 27px;
+    font-weight: 500;
+    align-self: center;
+    margin: 10px;
+}

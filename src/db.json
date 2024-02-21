@@ -1,0 +1,34 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "question": "What is the capital of France?",
+            "options": [
+                "London",
+                "Paris",
+                "Berlin"
+            ],
+            "correctAnswer": "Paris"
+        },
+        {
+            "id": 2,
+            "question": "Who wrote 'Romeo and Juliet'?",
+            "options": [
+                "William Shakespeare",
+                "Charles Dickens",
+                "Jane Austen"
+            ],
+            "correctAnswer": "William Shakespeare"
+        },
+        {
+            "id": 3,
+            "question": "What is the largest ocean in the world?",
+            "options": [
+                "Atlantic Ocean",
+                "Indian Ocean",
+                "Pacific Ocean"
+            ],
+            "correctAnswer": "Pacific Ocean"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+.quiz-containter{
+    width: 640px;
+    margin: auto;
+    margin-top: 150px;
+    background: white;
+    color: rgb(11, 12, 13);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 40px 50px;
+}
+
+.start-btn{
+    margin: auto;
+    width: 250px;
+    height: 65px;
+    background: #3f8c9a;
+    color: aliceblue;
+    font-size: 25px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: #3f8c9a;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.start-btn:hover{
+    background-color: #5fafbd ;
+}
