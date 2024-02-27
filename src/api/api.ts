@@ -14,9 +14,11 @@ type QuizQuestionsResponse = QuestionType[];
 export const fetchQuizQuestions = async (): Promise<QuizQuestionsResponse> => {
   try {
     const response: AxiosResponse<QuizQuestionsResponse> = await axios.get(`${API_URL}/questions`);
+    console.log('response', JSON.stringify(response))
     return response.data;
   } catch (error) {
     console.error('Error fetching quiz questions:', error);
     throw error;
   }
 };
+

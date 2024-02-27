@@ -3,7 +3,7 @@ import Question from '../Question/Question';
 import Result from '../Result/Result';
 import FSM from '../../fsm/fsm';
 import './Quiz.css'
-import { fetchQuizQuestions, QuestionType } from '../../api';
+import { fetchQuizQuestions, QuestionType } from '../../api/api';
 
 const initialState = 'start';
 const fsm = new FSM(initialState);
@@ -29,7 +29,7 @@ const Quiz = () => {
         fsm.addState('start', { transitions: { next: `question${questionId}` } });
       }
       const currentStateName = `question${questionId}`;
-      const isLast = index === questionsData.length -1
+      const isLast = index === questionsData.length - 1
       const nextState = isLast ? { transitions: { next: 'result' } } : { transitions: { next: `question${Number(questionId) + 1}` } };
       fsm.addState(currentStateName, nextState);
       if (isLast) {
@@ -40,8 +40,8 @@ const Quiz = () => {
     };
 
     questionsData.forEach((question, index) => {
-        addQuestionState(question.id, index)
-      });
+      addQuestionState(question.id, index)
+    });
   }, [questionsData])
 
   const handleAnswer = (answer: string) => {
@@ -72,7 +72,7 @@ const Quiz = () => {
           <Question
             question={question.question}
             options={question.options}
-            onSelect={handleAnswer}
+            handleAnswerSelection={handleAnswer}
           />
         );
     }
@@ -82,3 +82,5 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
+
