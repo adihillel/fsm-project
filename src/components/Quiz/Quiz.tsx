@@ -9,53 +9,49 @@ const initialState = 'start';
 const fsm = new FSM(initialState);
 
 const Quiz = () => {
-  // Define state types
   const [currentState, setCurrentState] = useState<string>(initialState);
   const [questionsData, setQuestionsData] = useState<QuestionType[]>([]);
   const [score, setScore] = useState<number>(0);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchQuizQuestions()
       .then((response: QuestionType[]) => {
         setQuestionsData(response)
-    })
-    .catch((error: any) => {
+      })
+      .catch((error: any) => {
         console.log(error)
-    })
+      })
   }, [])
-  
-questionsData.forEach((question, index) => {
-  if(index === 0){
-    const currentState = 'start'
-    const nextState = `question${question.id}`
-    fsm.addState(currentState, {
-        transitions: {
-        next: nextState,
-        },
-    });
-  }
 
-  const currentState = `question${question.id}`;
-  const nextState = `question${Number(question.id)+1}`;
-  fsm.addState(currentState, {
-    transitions: {
-      next:index === questionsData.length -1 ? 'result' : nextState,
-    },
-  });
-});
-fsm.addState('result', {
-  transitions: {}
-});
+  useEffect(() => {
+    const addQuestionState = (questionId: number, index: number) => {
+      if (index === 0) {
+        fsm.addState('start', { transitions: { next: `question${questionId}` } });
+      }
+      const currentStateName = `question${questionId}`;
+      const isLast = index === questionsData.length -1
+      const nextState = isLast ? { transitions: { next: 'result' } } : { transitions: { next: `question${Number(questionId) + 1}` } };
+      fsm.addState(currentStateName, nextState);
+      if (isLast) {
+        fsm.addState('result', {
+          transitions: {}
+        });
+      }
+    };
+
+    questionsData.forEach((question, index) => {
+        addQuestionState(question.id, index)
+      });
+  }, [questionsData])
 
   const handleAnswer = (answer: string) => {
     const nextState = fsm.getState()?.transitions.next;
     const currentQuestionIndex = parseInt(currentState.replace('question', ''), 10) - 1;
     const currentQuestion = questionsData[currentQuestionIndex];
 
- 
-  if (currentQuestion?.correctAnswer === answer) {
-    setScore(score + 1);
-  }
+    if (currentQuestion?.correctAnswer === answer) {
+      setScore(score + 1);
+    }
 
     if (nextState) {
       fsm.transitionTo(nextState);
@@ -63,24 +59,24 @@ fsm.addState('result', {
     }
   };
 
-const renderState = () => {
-  switch (currentState) {
-    case 'start':
-      return <button className='start-btn' onClick={() => handleAnswer('start')}>Start Quiz</button>;
-    case 'result':
-      return <Result score={score}/>;
-    default:
-      const questionIndex = parseInt(currentState.replace('question', ''), 10) - 1;
-      const question = questionsData[questionIndex];
-      return (
-        <Question
-          question={question.question}
-          options={question.options}
-          onSelect={handleAnswer}
-        />
-      );
-  }
-};
+  const renderState = () => {
+    switch (currentState) {
+      case 'start':
+        return <button className='start-btn' onClick={() => handleAnswer('start')}>Start Quiz</button>;
+      case 'result':
+        return <Result score={score} />;
+      default:
+        const questionIndex = parseInt(currentState.replace('question', ''), 10) - 1;
+        const question = questionsData[questionIndex];
+        return (
+          <Question
+            question={question.question}
+            options={question.options}
+            onSelect={handleAnswer}
+          />
+        );
+    }
+  };
 
   return <div className='quiz-containter'>{renderState()}</div>;
 };
