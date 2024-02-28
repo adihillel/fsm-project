@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/fsm-project/static/css/main.8e5feaf5.css",
-    "main.js": "/fsm-project/static/js/main.96c827ff.js",
+    "main.css": "/fsm-project/static/css/main.8f81159f.css",
+    "main.js": "/fsm-project/static/js/main.5b07d1e4.js",
     "index.html": "/fsm-project/index.html",
-    "main.8e5feaf5.css.map": "/fsm-project/static/css/main.8e5feaf5.css.map",
-    "main.96c827ff.js.map": "/fsm-project/static/js/main.96c827ff.js.map"
+    "main.8f81159f.css.map": "/fsm-project/static/css/main.8f81159f.css.map",
+    "main.5b07d1e4.js.map": "/fsm-project/static/js/main.5b07d1e4.js.map"
   },
   "entrypoints": [
-    "static/css/main.8e5feaf5.css",
-    "static/js/main.96c827ff.js"
+    "static/css/main.8f81159f.css",
+    "static/js/main.5b07d1e4.js"
   ]
 }
