@@ -12,6 +12,12 @@ const fsm = new FSM(initialState);
 const Quiz = () => {
   const [currentState, setCurrentState] = useState<string>(initialState);
   const [questionsData, setQuestionsData] = useState<QuestionDTO[]>([]);
+  const [currentDisplayedQuestion, setCurrentDisplayedQuestion] = useState<QuestionDTO>({
+    question: '',
+    options: [],
+    correctAnswer: '',
+    id: 0
+  })
   const [score, setScore] = useState<number>(0);
 
   useEffect(() => {
@@ -59,27 +65,30 @@ const Quiz = () => {
       setCurrentState(nextState);
     }
   };
-
-  const renderState = () => {
-    switch (currentState) {
-      case 'start':
-        return <StartButton onClick={() => handleAnswer('start')} />;
-      case 'result':
-        return <Result score={score} />;
-      default:
-        const questionIndex = parseInt(currentState.replace('question', ''), 10) - 1;
-        const question = questionsData[questionIndex];
-        return (
-          <Question
-            question={question.question}
-            options={question.options}
-            handleAnswerSelection={handleAnswer}
-          />
-        );
+  
+  useEffect(()=>{
+    if (currentState !== 'start' && currentState !== 'result') {
+      console.log('current state', currentState)
+      const questionIndex = parseInt(currentState.replace('question', ''), 10) - 1;
+      const question = questionsData[questionIndex];
+      setCurrentDisplayedQuestion(question)
     }
-  };
+  },[currentState, questionsData])
 
-  return <div className='quiz-containter'>{renderState()}</div>;
+  return (
+  <div className='quiz-containter'>
+    {currentState === 'start' ? <StartButton onClick={()=> handleAnswer('start')} /> : undefined}
+    {currentState === 'result' ? <Result score={score} /> : undefined}
+    {currentState !== 'start' && currentState !== 'result' 
+    ? 
+    <Question 
+      question={currentDisplayedQuestion.question} 
+      options={currentDisplayedQuestion.options} 
+      handleAnswerSelection={handleAnswer} 
+    /> 
+    : undefined}
+  </div>
+  )
 };
 
 export default Quiz;
