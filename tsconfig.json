@@ -6,5 +6,5 @@
     "jsx": "react",
     "esModuleInterop": true
   },
-   "include": ["src/**/*.tsx", "src/**/*.ts", "src/tests/Question.test.js", "src/tests/Quiz.test.js"]
+   "include": ["src/**/*.tsx", "src/**/*.ts", "src/__tests__/Question.test.js", "src/__tests__/Quiz.test.js"]
 }
