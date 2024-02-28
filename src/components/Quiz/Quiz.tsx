@@ -3,19 +3,20 @@ import Question from '../Question/Question';
 import Result from '../Result/Result';
 import FSM from '../../fsm/fsm';
 import './Quiz.css'
-import { fetchQuizQuestions, QuestionType } from '../../api/api';
+import { fetchQuizQuestions, QuestionDTO } from '../../api/api';
+import StartButton from '../StartButton/StartButton';
 
 const initialState = 'start';
 const fsm = new FSM(initialState);
 
 const Quiz = () => {
   const [currentState, setCurrentState] = useState<string>(initialState);
-  const [questionsData, setQuestionsData] = useState<QuestionType[]>([]);
+  const [questionsData, setQuestionsData] = useState<QuestionDTO[]>([]);
   const [score, setScore] = useState<number>(0);
 
   useEffect(() => {
     fetchQuizQuestions()
-      .then((response: QuestionType[]) => {
+      .then((response: QuestionDTO[]) => {
         setQuestionsData(response)
       })
       .catch((error: any) => {
@@ -62,7 +63,7 @@ const Quiz = () => {
   const renderState = () => {
     switch (currentState) {
       case 'start':
-        return <button className='start-btn' onClick={() => handleAnswer('start')}>Start Quiz</button>;
+        return <StartButton onClick={() => handleAnswer('start')} />;
       case 'result':
         return <Result score={score} />;
       default:

@@ -2,19 +2,18 @@ import axios, { AxiosResponse } from 'axios';
 
 const API_URL = 'http://localhost:5000';
 
-export interface QuestionType {
+export interface QuestionDTO {
   id: number;
   question: string;
   options: string[];
   correctAnswer: string;
 }
 
-type QuizQuestionsResponse = QuestionType[];
+type QuizQuestionsResponse = QuestionDTO[];
 
 export const fetchQuizQuestions = async (): Promise<QuizQuestionsResponse> => {
   try {
     const response: AxiosResponse<QuizQuestionsResponse> = await axios.get(`${API_URL}/questions`);
-    console.log('response', JSON.stringify(response))
     return response.data;
   } catch (error) {
     console.error('Error fetching quiz questions:', error);

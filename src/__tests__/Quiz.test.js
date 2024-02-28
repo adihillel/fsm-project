@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Quiz from '../components/Quiz/Quiz';
-import * as apiModule from '../api';
+import userEvent from "@testing-library/user-event";
+import * as apiModule from '../api/api';
 
 const mockQuestions = [
   {
@@ -12,7 +13,7 @@ const mockQuestions = [
   },
 ];
 
-jest.mock('../api', () => ({
+jest.mock('../api/api', () => ({
   fetchQuizQuestions: jest.fn(),
 }));
 
@@ -33,5 +34,13 @@ describe('Quiz component', () => {
     render(<Quiz />);
     const startButton = screen.getByText('Start Quiz');
     expect(startButton).toBeInTheDocument();
+  });
+
+    test('click on start button and see question', async() => {
+    render(<Quiz />);
+    const startButton = screen.getByText('Start Quiz');
+    userEvent.click(startButton)
+    const currentState = await screen.findByText('What is the capital of France?');
+    expect(currentState).toBeInTheDocument();
   });
 });

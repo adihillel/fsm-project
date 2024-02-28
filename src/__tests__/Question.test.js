@@ -4,7 +4,7 @@ import Question from '../components/Question/Question';
 
 test('renders question and options correctly', () => {
     const options = ['Option 1', 'Option 2', 'Option 3'];
-    render(<Question question="Test question" options = { options } onSelect = { jest.fn() } />);
+    render(<Question question="Test question" options = { options } handleAnswerSelection = { jest.fn() } />);
     const questionElement = screen.getByText('Test question');
     expect(questionElement).toBeInTheDocument();
 
@@ -14,11 +14,11 @@ test('renders question and options correctly', () => {
     });
 });
 
-test('calls onSelect function when an option is clicked', () => {
+test('calls handleAnswerSelection function when an option is clicked', () => {
     const options = ['Option 1', 'Option 2', 'Option 3'];
-    const onSelectMock = jest.fn();
-    render(<Question question="Test question" options = { options } onSelect = { onSelectMock } />);
+    const handleAnswerSelectionMock = jest.fn();
+    render(<Question question="Test question" options = { options } handleAnswerSelection = { handleAnswerSelectionMock } />);
     const optionElement = screen.getByText('Option 1');
     fireEvent.click(optionElement);
-    expect(onSelectMock).toHaveBeenCalledWith('Option 1');
+    expect(handleAnswerSelectionMock).toHaveBeenCalledWith('Option 1');
 });
